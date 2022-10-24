@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "calculator-rinf",
+  "version": "${version}",
+  "name": "Calculator Rinf",
+  "description": "",
+  "authors": [
+    "RinuxFF(RinF-UwU)"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/calculator-rinf/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "rinf.calculatorrinf.client.CalculatorRinfClient"
+    ],
+    "main": [
+      "rinf.calculatorrinf.CalculatorRinf"
+    ]
+  },
+  "mixins": [
+    "calculator-rinf.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.9",
+    "fabric": "*",
+    "minecraft": "1.19.2"
+  }
+}

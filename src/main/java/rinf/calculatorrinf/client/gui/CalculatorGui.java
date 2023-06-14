@@ -1,17 +1,10 @@
 package rinf.calculatorrinf.client.gui;
 
-import io.github.cottonmc.cotton.gui.GuiDescription;
-import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
-import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
-import io.github.cottonmc.cotton.gui.widget.*;
-import io.github.cottonmc.cotton.gui.widget.data.Insets;
-import io.github.cottonmc.cotton.gui.widget.icon.ItemIcon;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import rinf.calculatorrinf.client.CalculatorOperation;
 
-public class CalculatorGui extends LightweightGuiDescription {
+public class CalculatorGui {
+    /*
     public static WButton cButton0 = new WButton(Text.literal("0"));
     public static WButton cButton1 = new WButton(Text.literal("1"));
     public static WButton cButton2 = new WButton(Text.literal("2"));
@@ -138,4 +131,5 @@ public class CalculatorGui extends LightweightGuiDescription {
                 CalculatorOperation.y = 0;
             }
     }
+     */
 }

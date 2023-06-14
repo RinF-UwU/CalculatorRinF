@@ -5,12 +5,12 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.Element;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 public class RBackPanel extends DrawableHelper implements Drawable, Element {
     public static final Identifier R_PANEL_TEXTURE = new Identifier("calculator-rinf", "gui/panel.png");
+    public static final Identifier R_WIDGETS_TEXTURE = new Identifier("calculator-rinf", "gui/widgets.png");
     private int x;
     private int y;
     private int width;
@@ -30,14 +30,11 @@ public class RBackPanel extends DrawableHelper implements Drawable, Element {
     }
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        RenderSystem.setShaderTexture(0, R_PANEL_TEXTURE);
+        RenderSystem.setShaderTexture(0, R_WIDGETS_TEXTURE);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.enableDepthTest();
-        this.drawTexture(matrices, this.x, this.y, 0, 0, this.width / 2, this.height / 2);
-        this.drawTexture(matrices, this.x + this.width / 2, this.y + this.height / 2, 256 - this.width / 2, 256 - this.height / 2, this.width / 2, this.height / 2);
-        this.drawTexture(matrices, this.x, this.y + this.height / 2, 0, 256 - this.height / 2, this.width / 2, this.height / 2);
-        this.drawTexture(matrices, this.x + this.width / 2, this.y, 256 - this.width / 2, 0, this.width / 2, this.height / 2);
+        drawNineSlicedTexture(matrices, this.getX(), this.getY(), this.getWidth(), this.getHeight(), 10, 10, 100, 100, 0, 0);
     }
 
     public int getX() { return x; }
@@ -54,4 +51,14 @@ public class RBackPanel extends DrawableHelper implements Drawable, Element {
     public int getHeight() { return height; }
 
     public void setHeight(int height) { this.height = height; }
+
+    @Override
+    public void setFocused(boolean focused) {
+
+    }
+
+    @Override
+    public boolean isFocused() {
+        return false;
+    }
 }

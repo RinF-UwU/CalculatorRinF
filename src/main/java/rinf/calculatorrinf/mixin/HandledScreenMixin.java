@@ -35,8 +35,7 @@ public class HandledScreenMixin {
         Window window = MinecraftClient.getInstance().getWindow();
         int width = window.getScaledWidth();
         int height = window.getScaledHeight();
-        this.showCalculatorButton.x = width - 96;
-        this.showCalculatorButton.y = 6;
+        this.showCalculatorButton.setPosition(width - 96, 6);
         this.backPanel = new RBackPanel(width - 122 - 6, height - 141 - 6, 122, 141);
         this.calculator = new Calculator(this.backPanel);
 

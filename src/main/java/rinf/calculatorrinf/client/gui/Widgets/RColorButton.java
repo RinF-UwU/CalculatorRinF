@@ -1,44 +1,60 @@
 package rinf.calculatorrinf.client.gui.Widgets;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
+import net.minecraft.client.gui.widget.PressableWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
 
-public class RColorButton extends ButtonWidget {
+public class RColorButton extends PressableWidget {
     private Color4F color;
-    public RColorButton(int x, int y, int width, int height, Text message, Color4F color, PressAction onPress) {
-        super(x, y, width, height, message, onPress);
+    private final OnPress onPress;
+
+    public RColorButton(int x, int y, int width, int height, Text message, Color4F color, OnPress onPress) {
+        super(x, y, width, height, message);
 
         this.color = color;
+        this.onPress = onPress;
     }
 
     @Override
+    public void onPress() { this.onPress.onPress(this); }
+
+    @Override
     public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-
         MinecraftClient minecraftClient = MinecraftClient.getInstance();
-        TextRenderer textRenderer = minecraftClient.textRenderer;
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, WIDGETS_TEXTURE);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.alpha);
-        int i = this.getYImage(this.isHovered());
+        RenderSystem.setShaderColor(this.color.red, this.color.green, this.color.blue, this.color.alpha);
         RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
         RenderSystem.enableDepthTest();
-        RenderSystem.setShaderColor(this.color.red, this.color.green, this.color.blue, this.alpha);
-        this.drawTexture(matrices, this.x, this.y, 0, 46 + i * 20, this.width / 2, this.height);
-        this.drawTexture(matrices, this.x + this.width / 2, this.y, 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.alpha);
-        this.renderBackground(matrices, minecraftClient, mouseX, mouseY);
-        int j = this.active ? 16777215 : 10526880;
-        drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+        drawNineSlicedTexture(matrices, this.getX(), this.getY(), this.getWidth(), this.getHeight(), 20, 4, 200, 20, 0, this.getTextureY());
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        int i = this.active ? 16777215 : 10526880;
+        this.drawMessage(matrices, minecraftClient.textRenderer, i | MathHelper.ceil(this.alpha * 255.0F) << 24);
+    }
 
-        if (this.isHovered()) {
-            this.renderTooltip(matrices, mouseX, mouseY);
+    private int getTextureY() {
+        int i = 1;
+        if (!this.active) {
+            i = 0;
+        } else if (this.isSelected()) {
+            i = 2;
         }
+
+        return 46 + i * 20;
+    }
+
+    @Override
+    protected void appendClickableNarrations(NarrationMessageBuilder builder) {
+        
+    }
+
+    @Environment(value= EnvType.CLIENT)
+    public interface OnPress {
+        void onPress(RColorButton button);
     }
 }

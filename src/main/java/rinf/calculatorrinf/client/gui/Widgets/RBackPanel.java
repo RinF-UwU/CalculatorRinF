@@ -31,7 +31,7 @@ public class RBackPanel implements Drawable, Element {
     public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
         RenderSystem.enableBlend();
         RenderSystem.enableDepthTest();
-        drawContext.drawNineSlicedTexture(R_PANEL_TEXTURE, this.getX(), this.getY(), this.getWidth(), this.getHeight(), 10, 10, 100, 100, 0, 0);
+        drawContext.drawNineSlicedTexture(R_WIDGETS_TEXTURE, this.getX(), this.getY(), this.getWidth(), this.getHeight(), 10, 10, 100, 100, 0, 0);
     }
 
     public int getX() { return x; }

@@ -9,6 +9,7 @@ import rinf.calculatorrinf.client.gui.CalculatorScreen;
 
 @Environment(EnvType.CLIENT)
 public class CalculatorRinfClient implements ClientModInitializer {
+    public static boolean isShowCalculator = false;
     @Override
     public void onInitializeClient() {
         KeyBinders.keyBinders();

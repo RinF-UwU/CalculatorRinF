@@ -9,25 +9,20 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
-import java.util.List;
-
 public class RBackPanel extends DrawableHelper implements Drawable, Element {
     public static final Identifier R_PANEL_TEXTURE = new Identifier("calculator-rinf", "gui/panel.png");
-    private final boolean center;
     private int x;
     private int y;
     private int width;
     private int height;
 
     public RBackPanel(int x, int y, int width, int height) {
-        this.center = false;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
     }
     public RBackPanel(int width, int height) {
-        this.center = true;
         this.x = (MinecraftClient.getInstance().getWindow().getScaledWidth() / 2) - (width / 2);
         this.y = (MinecraftClient.getInstance().getWindow().getScaledHeight() / 2) - (height / 2);
         this.width = width;
@@ -35,7 +30,6 @@ public class RBackPanel extends DrawableHelper implements Drawable, Element {
     }
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        Screen screen = MinecraftClient.getInstance().currentScreen;
         RenderSystem.setShaderTexture(0, R_PANEL_TEXTURE);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
